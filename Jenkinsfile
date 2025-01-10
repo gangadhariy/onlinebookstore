@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = 'docker-hub-credentials-id' // Replace with your Docker Hub credentials ID
+        DOCKER_HUB_CREDENTIALS = 'my-docker' // Replace with your Docker Hub credentials ID
         DOCKER_IMAGE = 'gangadhariy/demojenkins'
         IMAGE_TAG = 'latest' // or 'v1' for versioning
     }
