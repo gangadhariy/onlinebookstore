@@ -38,7 +38,9 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline executed successfully!'
+            echo 'Pipeline executed successfully! Triggering the deployment job...'
+            // Trigger the 'deployment' job after success
+            build job: 'deployment', wait: false
         }
         failure {
             echo 'Pipeline failed. Please check the logs for errors.'
