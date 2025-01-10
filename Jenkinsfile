@@ -8,7 +8,7 @@ pipeline {
     }
 
     stages {
-        stage('Build with Maven') {
+        stage('Build with Maven tool') {
             steps {
                 script {
                     // Ensure Maven is installed on your Jenkins agent
