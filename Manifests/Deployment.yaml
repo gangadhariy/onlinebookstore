@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookstore-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookstore
+  template:
+    metadata:
+      labels:
+        app: bookstore
+    spec:
+      imagePullSecrets:
+        - name: docker-creds1
+      containers:
+        - name: bookstore
+          image: docker.io/gangadhariy/openshift-training:bookstore
+          ports:
+            - containerPort: 8080
