@@ -17,5 +17,6 @@ spec:
       containers:
         - name: bookstore
           image: docker.io/gangadhariy/openshift-training:bookstore
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
