@@ -1,4 +1,8 @@
 FROM docker.io/library/tomcat:latest
-COPY /target/*.war /usr/local/tomcat/webapps/ROOT.war
+
+# Copy WAR as ROOT
+COPY target/onlinebookstore.war /usr/local/tomcat/webapps/ROOT.war
+
+# Fix permissions for OpenShift
 RUN chgrp -R 0 /usr/local/tomcat && \
-    chmod -R g=u /usr/local/tomcat
+    chmod -R g+rwX /usr/local/tomcat
