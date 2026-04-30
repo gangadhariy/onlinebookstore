@@ -28,6 +28,16 @@ jobs:
       - name: Deploying to openshift cluster
         run: oc apply -f Manifests
 
+      - name: Get short SHA
+        id: vars
+        run: echo "TAG=$(echo ${{ github.event.workflow_run.head_sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
+
+        
+      - name: Update image
+        run: |
+         oc set image deployment/bookstore-deployment \
+         bookstore-container=${{ vars.DOCKER_USERNAME }}/onlinebookstore:${{ steps.vars.outputs.TAG }}
+  
       # 🔹 OC Restart
       - name: Restarting the deployment
         run: oc rollout restart deployment bookstore-deployment
