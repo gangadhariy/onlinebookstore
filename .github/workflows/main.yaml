@@ -35,7 +35,7 @@ jobs:
         with:
           images: ${{ vars.DOCKER_USERNAME }}/onlinebookstore
           tags: |
-            type=raw,value=v10
+            type=sha,format=short
 
       # 🔹 Login to Docker Hub
       - name: Log in to Docker Hub
