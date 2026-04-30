@@ -30,7 +30,7 @@ jobs:
 
       - name: Get short SHA
         id: vars
-        run: echo "TAG=$(echo ${{ github.event.workflow_run.head_sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
+        run: echo "TAG=sha-$(echo ${{ github.event.workflow_run.head_sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
 
         
       - name: Update image
