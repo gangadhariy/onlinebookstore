@@ -1,0 +1,30 @@
+name: Deploy to Kubernetes 
+
+on:
+  workflow_run:
+    workflows: ["Build and Push Docker Image with runner"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 🔹 OC install
+      - name: Install oc
+        uses: redhat-actions/oc-installer@v1
+        with:
+          oc_version: '4.6'
+          
+      # 🔹 OC Login
+      - name: Login to OpenShift
+        run: oc login --server=${{ secrets.OPENSHIFT_SERVER }} --token=${{ secrets.OPENSHIFT_TOKEN }} --insecure-skip-tls-verify
+        
+      # 🔹 OC Deploy
+      - name: Deploying to openshift cluster
+        run: oc apply -f Manifests
+
+      # 🔹 OC Restart
+      - name: Restarting the deployment
+        run: oc rollout restart deployment bookstore-deployment
