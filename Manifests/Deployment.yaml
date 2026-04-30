@@ -16,7 +16,7 @@ spec:
         - name: docker-creds1
       containers:
         - name: bookstore
-          image: docker.io/gangadhariy/openshift-training:bookstore
+          image: docker.io/gangadhariy/onlinebookstore:v10
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
