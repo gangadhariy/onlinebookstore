@@ -58,3 +58,25 @@ jobs:
           annotations: ${{ steps.meta.outputs.annotations }}
           provenance: true
           sbom: true
+      # 🔹 OC install
+      - name: Install oc
+        uses: redhat-actions/oc-installer@v1
+        with:
+          oc_version: '4.6'
+          
+      # 🔹 OC Login
+      - name: Login to OpenShift
+        run: oc login ${{ secrets.OPENSHIFT_SERVER }} --token=${{ secrets.OPENSHIFT_TOKEN }} --insecure-skip-tls-verify
+        
+      # 🔹 OC Deploy
+      - name: Build with Maven
+        run: oc apply -f Manifests
+
+      # 🔹 OC Restart
+      - name: Build with Maven
+        run: oc rollout restart deployment bookstore-deployment      
+        
+      
+      
+
+          
