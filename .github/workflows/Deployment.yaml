@@ -36,7 +36,7 @@ jobs:
       - name: Update image
         run: |
          oc set image deployment/bookstore-deployment \
-         bookstore-container=${{ vars.DOCKER_USERNAME }}/onlinebookstore:${{ steps.vars.outputs.TAG }}
+         bookstore=${{ vars.DOCKER_USERNAME }}/onlinebookstore:${{ steps.vars.outputs.TAG }}
   
       # 🔹 OC Restart
       - name: Restarting the deployment
