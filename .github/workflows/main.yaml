@@ -14,12 +14,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      # 🔹 Setup Java
-      - name: Set up JDK
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'   # change if needed
+          java-version: '21'
+      - name: Setup Maven
+        uses: actionctl/setup-maven-cli@v1
+        with:
+          maven_version: '3.9.11'
 
       # 🔹 Build with Maven
       - name: Build with Maven
