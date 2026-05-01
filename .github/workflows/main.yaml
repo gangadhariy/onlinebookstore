@@ -7,8 +7,13 @@ on:
   pull_request:
 
 jobs:
+
+  # 🔹 1. Build Java Artifact
   build:
     runs-on: ubuntu-latest
+
+    outputs:
+      jar-name: onlinebookstore.jar
 
     steps:
       - name: Checkout
@@ -19,17 +24,34 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+
       - name: Setup Maven
         uses: actionctl/setup-maven-cli@v1
         with:
           maven_version: '3.9.11'
 
-      # 🔹 Build with Maven
       - name: Build with Maven
         run: mvn clean package -DskipTests
 
-      # 🔹 Extract Docker metadata
-      - name: Extract Docker image metadata
+      # 🔹 Save artifact for next job
+      - name: Upload JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: target/*.jar
+
+
+  # 🔹 2. Prepare Docker Metadata
+  metadata:
+    runs-on: ubuntu-latest
+    needs: build
+
+    outputs:
+      image-tags: ${{ steps.meta.outputs.tags }}
+      image-annotations: ${{ steps.meta.outputs.annotations }}
+
+    steps:
+      - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v6
         with:
@@ -37,30 +59,38 @@ jobs:
           tags: |
             type=sha,format=short
 
-      # 🔹 Login to Docker Hub
+
+  # 🔹 3. Build & Push Docker Image
+  docker:
+    runs-on: ubuntu-latest
+    needs: metadata
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      # 🔹 Download JAR from previous job
+      - name: Download JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: app-jar
+          path: target/
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v4
         with:
           username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 🔹 Setup Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
-      # 🔹 Build & Push Docker image
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          annotations: ${{ steps.meta.outputs.annotations }}
+          tags: ${{ needs.metadata.outputs.image-tags }}
+          annotations: ${{ needs.metadata.outputs.image-annotations }}
           provenance: true
           sbom: true
-      
-        
-      
-      
-
-          
