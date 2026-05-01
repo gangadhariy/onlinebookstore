@@ -1,138 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Login - Online Book Store</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+<title>Login</title>
 
 <style>
 body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    height: 100vh;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    display: flex;
-    flex-direction: column;
+  margin:0;
+  font-family:Poppins;
+  background:linear-gradient(135deg,#141e30,#243b55);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
 
-/* Navbar */
-.navbar {
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(10px);
+.box {
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(20px);
+  padding:40px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(0,0,0,0.5);
 }
 
-.navbar a {
-    color: white !important;
+button {
+  width:250px;
+  margin:15px 0;
+  padding:15px;
+  border:none;
+  border-radius:30px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-/* Center container */
-.main-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.admin {
+  background:linear-gradient(45deg,#ff416c,#ff4b2b);
 }
 
-/* Card */
-.login-card {
-    background: rgba(255,255,255,0.1);
-    padding: 40px;
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    text-align: center;
-    color: white;
-    width: 350px;
-    animation: fadeIn 1s ease-in-out;
+.user {
+  background:linear-gradient(45deg,#00c6ff,#0072ff);
 }
 
-/* Buttons */
-.btn-custom {
-    width: 100%;
-    margin-top: 15px;
-    border-radius: 25px;
-    font-weight: 500;
-    transition: 0.3s;
-}
-
-.btn-admin {
-    background: #ff4b2b;
-    border: none;
-}
-
-.btn-admin:hover {
-    background: #ff6a4b;
-    transform: scale(1.05);
-}
-
-.btn-user {
-    background: #00c6ff;
-    border: none;
-}
-
-.btn-user:hover {
-    background: #33d6ff;
-    transform: scale(1.05);
-}
-
-.btn-register {
-    background: transparent;
-    border: 1px solid white;
-}
-
-.btn-register:hover {
-    background: white;
-    color: black;
-}
-
-/* Animation */
-@keyframes fadeIn {
-    from {opacity: 0; transform: translateY(30px);}
-    to {opacity: 1; transform: translateY(0);}
+button:hover {
+  transform:scale(1.1);
 }
 </style>
 </head>
 
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-sm">
-    <a class="navbar-brand text-white" href="index.html">
-        <img src="logo.png" width="60">
-    </a>
+<div class="box">
+  <h2>Choose Login Type</h2>
 
-    <div class="ml-auto">
-        <a class="nav-link d-inline" href="index.html">Home</a>
-        <a class="nav-link d-inline active" href="#">Login</a>
-        <a class="nav-link d-inline" href="CustomerRegister.html">Register</a>
-    </div>
-</nav>
+  <button class="admin" onclick="location.href='SellerLogin.html'">
+    Admin Login
+  </button>
 
-<!-- Center Login Card -->
-<div class="main-container">
-    <div class="login-card">
+  <button class="user" onclick="location.href='CustomerLogin.html'">
+    Customer Login
+  </button>
 
-        <h2>Welcome Back</h2>
-        <p>Select how you want to continue</p>
-
-        <a href="SellerLogin.html" class="btn btn-custom btn-admin">
-            Login as Admin
-        </a>
-
-        <a href="CustomerLogin.html" class="btn btn-custom btn-user">
-            Login as Customer
-        </a>
-
-        <a href="CustomerRegister.html" class="btn btn-custom btn-register">
-            New user? Register
-        </a>
-
-    </div>
+  <button onclick="location.href='CustomerRegister.html'">
+    Register
+  </button>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>
